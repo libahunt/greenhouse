@@ -2,6 +2,7 @@
 code size - SD card functions and debug code do not fit at the same time
 atmega168
 switch off SD logging and test the rest of the code with DEBUG
+
 */
 
 

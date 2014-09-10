@@ -5,7 +5,7 @@ void logData() {
     return; //quit trying to log
   }
 
-  if (!file.open("datalog.txt", O_CREAT | O_WRITE | O_EXCL)) {
+  if (!file.open("datalog.txt", O_CREAT | O_APPEND | O_WRITE )) {
     /*debug*/DPL("SD file error");
     return;//quit trying to log
   }
@@ -34,7 +34,7 @@ void logReset() {
     /*debug*/DPL("SD card not present");
     return; //quit trying to log
   }
-  if (!file.open("datalog.txt", O_CREAT | O_WRITE | O_EXCL)) {
+  if (!file.open("datalog.txt", O_CREAT | O_APPEND | O_WRITE )) {
     /*debug*/DPL("SD file error");
     return; //quit trying to log
   }

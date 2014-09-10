@@ -13,9 +13,10 @@ boolean workCycle = false; //helper for passing the state from interrupt to loop
 
 byte anemoOutput;
 byte lastAnemoOutput;
-int anemoTogglesCount;
+unsigned long anemoTogglesCount;
 
 unsigned long millisNow;
 unsigned long debounceStartTime;
+int didToggle = 0;//boolean helper for anemometer debouncing
 
 int i;

@@ -5,14 +5,17 @@ void measureWind() {
   unsigned long measureStartTime = millis();
   lastAnemoOutput = PIND & 0x10;//digitalRead(anemometer);
   anemoTogglesCount = 0;
+  didToggle = 0;
   millisNow = millis();
   while (millisNow - measureStartTime < windMeasureTime) {
     anemoOutput = PIND & 0x10;//digitalRead(anemometer);
     if (lastAnemoOutput != anemoOutput) {
-     debounceStartTime = millis(); 
+     debounceStartTime = millis();
+     didToggle = 1; 
     }
-    else if (millisNow - debounceStartTime > anemoDebounceThres) {
-     anemoTogglesCount++; 
+    else if (didToggle && millisNow - debounceStartTime > anemoDebounceThres) {
+     anemoTogglesCount++;
+     didToggle = 0;
     }
     lastAnemoOutput = anemoOutput;
     millisNow = millis();
