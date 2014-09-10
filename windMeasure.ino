@@ -11,12 +11,14 @@ void measureWind() {
     if (lastAnemoOutput != anemoOutput) {
      debounceStartTime = millis(); 
     }
-    if (millisNow - debounceStartTime > anemoDebounceThres) {
+    else if (millisNow - debounceStartTime > anemoDebounceThres) {
      anemoTogglesCount++; 
     }
     lastAnemoOutput = anemoOutput;
     millisNow = millis();
   }
+  /*debug*/DP("anemoTogglesCount");
+  /*debug*/DPL(anemoTogglesCount);
   anemoRpm = anemoTogglesCount * 60*1000 / (windMeasureTime * 12);
   /*my anemometer's Hall sensor toggles 6 times back and forth in one cycle
   because we count from LOW to HIGH as well as HIGH to LOW that means 12 toggles,

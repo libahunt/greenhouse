@@ -6,7 +6,6 @@ switch off SD logging and test the rest of the code with DEBUG
 
 
 
-//#include <SD.h>
 #include <SdFat.h>
 #include <idDHT11.h>
 
@@ -16,7 +15,7 @@ switch off SD logging and test the rest of the code with DEBUG
 
 
 /*debug*/
-#define DEBUG /*comment this out in production*/
+#define DEBUG /*comment this line out in production then all Serial instructsions are ignored*/
 #include "DebugUtils.h"
 
 
@@ -48,8 +47,7 @@ void setup() {
     /*debug*/Serial.begin(9600);
   /*debug*/#endif
   
-  /*Pin modes*/
-  /*for code size reduction using direct port manipulation instead
+  /*Pin modes - I am using direct port manipulation instead, but for quick grasp in Arduino language it would be:
   pinMode(relayClose1, OUTPUT);
   pinMode(relayClose2, OUTPUT);
   pinMode(relayOpen1, OUTPUT);
@@ -60,15 +58,6 @@ void setup() {
   pinMode(limitSwClose, INPUT);
   pinMode(limitSwOpen, INPUT);
   */
-  
-  /*port D:
-  PD0, PD1 - TX and RX unused otherwise and anyway better not to touch
-  PD2,PD3 temp sensors - leave for the library to handle
-  PD4 - anemometer = input
-  PD5 - unused
-  PD6, PD7 relays = outputs*/
-  DDRD = DDRD | 0xC0;//outputs
-  DDRD = DDRD & ~0x10;//inputs
   
   /*port B:
   PD0, PD1 relays = outputs
@@ -84,6 +73,16 @@ void setup() {
   */
   DDRC = DDRC & ~0x18;//inputs
   
+  /*port D:
+  PD0, PD1 - TX and RX unused and anyway better not to touch
+  PD2,PD3 temp sensors - leave for the library to handle
+  PD4 - anemometer = input
+  PD5 - unused
+  PD6, PD7 relays = outputs*/
+  DDRD = DDRD | 0xC0;//outputs
+  DDRD = DDRD & ~0x10;//inputs
+  
+  
   logReset();//record the fact of setup running in log file and add column headings
   
   watchdogInterruptSetup();//set up 1 second watchdog timer interrupts for waking up from sleep
@@ -97,7 +96,7 @@ void setup() {
 
 void loop() {
   
-  /*debug*/DP("in loop(), secondsCounter =");
+  /*debug*/DP("secondsCounter =");
   /*debug*/DPL(secondsCounter);
   
   

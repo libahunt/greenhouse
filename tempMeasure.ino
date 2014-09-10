@@ -10,8 +10,9 @@ void measureTemp() {
   rhOut = -1;
   /*initialize communication*/
   DHT11A.acquire();
+  DHT11B.acquire();
   
-  /*save reslults*/
+  /*save results*/
   while (DHT11A.acquiring());
   for (i=0; i<tempReadMaxTries;i++) {
     if (DHT11A.getStatus() == IDDHTLIB_OK) {
@@ -21,7 +22,6 @@ void measureTemp() {
     }
   }
   
-  DHT11B.acquire();
   while (DHT11B.acquiring());
   for (i=0; i<tempReadMaxTries;i++) {
     if (DHT11B.getStatus() == IDDHTLIB_OK) {
