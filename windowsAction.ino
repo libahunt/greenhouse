@@ -11,10 +11,10 @@ turns relays on til limit switch gets pushed*/
       while ((PINC & 0x10) > 0) {
         
       }
-      /*debug*/DPL("limit switch hit");
       //turn off the relays
       PORTB &= ~0x01;
       PORTB &= ~0x02;
+      /*debug*/DPL("limit switch hit");
       /*debug*/DPL("done opening windows");
     }
     else {/*debug*/DPL("limit switch already active");}
@@ -30,10 +30,10 @@ turns relays on til limit switch gets pushed*/
       while ((PINC & 0x08) > 0) {
         
       }
-      /*debug*/DPL("limit switch hit");
       //turn off the relays
       PORTD &= ~0x40;
       PORTD &= ~0x80;
+      /*debug*/DPL("limit switch hit");
       /*debug*/DPL("done closing windows");
     }
     else {/*debug*/DPL("limit switch already active");}
