@@ -9,7 +9,7 @@ based on http://forum.arduino.cc/index.php?PHPSESSID=t751ftglgpibikp8fa2h70o8s4&
   #define DP(str) \
     Serial.print(str); \
     Serial.print(" ");
-   #define DPL(str) \
+  #define DPL(str) \
     Serial.println(str);
 #else
   #define DP(str)

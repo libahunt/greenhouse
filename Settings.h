@@ -9,8 +9,8 @@ If there is not sufficient light the temperatures may be lowered (to 12 deg cels
 ***/
 
 /*first we check windspeed, because a storm can break open windows*/
-const int closeWindowsAnemoRpm = 90;
-const int openWindowsAnemoRpm = 60;
+const int closeWindowsAnemoRpm = 60;
+const int openWindowsAnemoRpm = 40;
 
 /*if windspeed allows open windows we want to maintain ideal temperature inside the greenhouse*/
 const int openWindowsTemp = 24;
@@ -24,7 +24,7 @@ const int closeWindowsIfMoistTemp = 15; //temperature inside to close windows in
 
 
 /*how often the controller wakes up and performs measurements, value in SECONDS*/
-const int interval = 30;//30*60; //30 mins
+const int interval = 30*60; //30 mins
 
 /*how many attempts to make with DHT11 temperature/RH sensors if the communication fails*/
 int tempReadMaxTries = 3;

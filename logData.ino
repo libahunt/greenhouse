@@ -39,8 +39,16 @@ void logReset() {
     return; //quit trying to log
   }
   
+  /*debug*/DPL(((float) interval) / 60);
   /*debug*/DPL("SD file ok");
   file.println("Temperature outside (deg C),Relative humidity outside(%),Temperature inside (deg C),Relative humidity inside(%),Anemometer RPM,State (0-closed 1-open)");
+  file.print("Interval is ");
+  file.print( ((float) interval) / 60 );
+  file.print("minutes");
+  /*debug*/#ifdef DEBUG
+  /*debug*/  file.print(". Debug is ON");
+  /*debug*/#endif
+  file.println(".");
   file.close();
   /*debug*/DPL("log reset done");
  

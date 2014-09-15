@@ -24,17 +24,17 @@ void watchdogInterruptSetup() {
 
 ISR(WDT_vect) {
   //count the time up to mesurement interval
-  secondsCounter++;
+  secondsCounter--;
   //next finishes goToSleep if WDT woke it up and goes to loop
   //or goes back to where it was in loop if in the middle of work cycle
 }
 
 
 void goToSleep() { //routines needed before putting controller to sleep and then going into sleep mode
-  /*debugDP("sleep in 1 s");*/
+  /*debugDP("sleep in 0.5 s");*/
   /*following delay is needed to not mess up serial communication*/
   /*debug*/#ifdef DEBUG
-    /*debug*/delay(500);
+  /*debug*/  delay(500);
   /*debug*/#endif
   
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);

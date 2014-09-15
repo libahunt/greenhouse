@@ -31,13 +31,13 @@ void measureTemp() {
     }
   }
   
-  /*debug*/DP("tempIn");
+  /*debug*/DP("tempIn = ");
   /*debug*/DPL(tempIn);
-  /*debug*/DP("rhIn");
+  /*debug*/DP("rhIn = ");
   /*debug*/DPL(rhIn);
-  /*debug*/DP("tempOut");
+  /*debug*/DP("tempOut = ");
   /*debug*/DPL(tempOut);
-  /*debug*/DP("rhOut");
+  /*debug*/DP("rhOut = ");
   /*debug*/DPL(rhOut);
   
 

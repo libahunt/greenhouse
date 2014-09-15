@@ -1,8 +1,19 @@
-/*Problems:
-code size - SD card functions and debug code do not fit at the same time
-atmega168
-switch off SD logging and test the rest of the code with DEBUG
+/*
+Attention:
 
+Physical pin connections: all connections are explained in layout.h file (appears as tab in Arduino IDE).
+
+Settings: Variables that hold parameters that are most likely to need tweaking, are in Settings.h file.
+
+Debugging: For hardware tests there is Serial debug code provided. To use it, find "#define DEBUG" 
+in this file and remove comment marks from it. Measurement interval increases 1.5 times when debug is enabled
+(even if serial is not connected).
+
+ATmega 168: SD card functions and Serial commands in debug code do not fit at the same time
+on ATmega168 (they fit on ATmega 328 nicely).
+It is possible to test your hardware, except SD card, via provided debug code
+if you switch off SD logging - to do that find logReset() and logData() in this file and comment
+them out.
 */
 
 
@@ -16,8 +27,8 @@ switch off SD logging and test the rest of the code with DEBUG
 
 
 /*debug*/
-#define DEBUG /*comment this line out in production then all Serial instructsions are ignored*/
-#include "DebugUtils.h"
+//#define DEBUG /*comment this line out in production then all Serial instructsions are ignored*/
+#include "DebugUtils.h"/*leave this in, otherwise you get errors*/
 
 
 #include "layout.h" //Pin connections
@@ -88,6 +99,8 @@ void setup() {
   
   watchdogInterruptSetup();//set up 1 second watchdog timer interrupts for waking up from sleep
   
+  secondsCounter = 0; //starts with work cycle
+  
 }
 
 
@@ -97,14 +110,30 @@ void setup() {
 
 void loop() {
   
-  /*debug*/DP("secondsCounter =");
-  /*debug*/DPL(secondsCounter);
+  /*debug*/DPL(secondsCounter);//count down seconds to next worc cycle
   
-  
-  if (secondsCounter >= interval) {
-    secondsCounter = 0;
+  if (secondsCounter <= 0) {
+    secondsCounter = interval;
     workCycle = true;
   }
+  
+  /*For debugging purposes type 'o' or 'c' into serial monitor to
+  make motors open or close windows respectively. 
+  It may take a few tries before it works.*/
+  /*debug*/#ifdef DEBUG
+  /*debug*/  while (Serial.available()) {
+  /*debug*/    char inChar = (char)Serial.read(); 
+  /*debug*/    if (inChar == 'o') {
+  /*debug*/      newState = 1;
+  /*debug*/    }
+  /*debug*/    else if( inChar == 'c') {
+  /*debug*/      newState = 0;
+  /*debug*/    }
+  /*debug*/    operateWindows();
+  /*debug*/    state = newState;
+  /*debug*/  }
+  /*debug*/#endif
+  
   
   //if the interval has passed, take measurements and do action
   if (workCycle) {
@@ -119,7 +148,6 @@ void loop() {
     
     
     /***decide***/
-    
     if (anemoRpm >= closeWindowsAnemoRpm) {
     //has got too windy, close windows disregarding anything else
      newState = 0;//closed
@@ -171,6 +199,7 @@ void loop() {
     if (newState != state) {
       operateWindows();
     }
+    state = newState;
     
     workCycle = false;//all done, go back to passive mode
     

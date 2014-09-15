@@ -1,7 +1,3 @@
-/*PROBLEMS:
-Something wrong with reading limit switches it seems ...
-*/
-
 void operateWindows() {
 /*moves windows to state determined by newState variable
 turns relays on til limit switch gets pushed*/
@@ -12,7 +8,9 @@ turns relays on til limit switch gets pushed*/
       PORTB |= 0x01;
       PORTB |= 0x02;
       //wait til switch gets pushed
-      while ((PINC & 0x10) > 0) {}
+      while ((PINC & 0x10) > 0) {
+        
+      }
       /*debug*/DPL("limit switch hit");
       //turn off the relays
       PORTB &= ~0x01;
@@ -29,7 +27,9 @@ turns relays on til limit switch gets pushed*/
       PORTD |= 0x40;
       PORTD |= 0x80;
       //wait til switch gets pushed
-      while ((PINC & 0x080) > 0) {}
+      while ((PINC & 0x08) > 0) {
+        
+      }
       /*debug*/DPL("limit switch hit");
       //turn off the relays
       PORTD &= ~0x40;
