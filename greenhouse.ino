@@ -6,8 +6,7 @@ Physical pin connections: all connections are explained in layout.h file (appear
 Settings: Variables that hold parameters that are most likely to need tweaking, are in Settings.h file.
 
 Debugging: For hardware tests there is Serial debug code provided. To use it, find "#define DEBUG" 
-in this file and remove comment marks from it. Measurement interval increases 1.5 times when debug is enabled
-(even if serial is not connected).
+in this file and remove comment marks from it.
 
 ATmega 168: SD card functions and Serial commands in debug code do not fit at the same time
 on ATmega168 (they fit on ATmega 328 nicely).
@@ -27,7 +26,7 @@ them out.
 
 
 /*debug*/
-//#define DEBUG /*comment this line out in production then all Serial instructsions are ignored*/
+#define DEBUG /*comment this line out in production then all Serial instructsions are ignored*/
 #include "DebugUtils.h"/*leave this in, otherwise you get errors*/
 
 
@@ -196,9 +195,8 @@ void loop() {
     logData();
     
     /***move windows***/
-    if (newState != state) {
-      operateWindows();
-    }
+    operateWindows();
+    
     state = newState;
     
     workCycle = false;//all done, go back to passive mode
@@ -208,5 +206,3 @@ void loop() {
   goToSleep(); //back to sleep til next interrupt
   
 }
-
-

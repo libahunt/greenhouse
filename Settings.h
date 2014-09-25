@@ -24,7 +24,7 @@ const int closeWindowsIfMoistTemp = 15; //temperature inside to close windows in
 
 
 /*how often the controller wakes up and performs measurements, value in SECONDS*/
-const int interval = 30*60; //30 mins
+const int interval = 15*60;//15 mins
 
 /*how many attempts to make with DHT11 temperature/RH sensors if the communication fails*/
 int tempReadMaxTries = 3;

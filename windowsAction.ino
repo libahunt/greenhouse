@@ -3,14 +3,12 @@ void operateWindows() {
 turns relays on til limit switch gets pushed*/
   if (newState == 1) {//open windows
     /*debug*/DPL("start opening windows");
-    if ((PINC & 0x10) > 0) {//negative logic switch goes to low when pushed   digitalRead(limitSw)
+    if ((PINC & 0x10) == 0x10) {//negative logic switch goes to low when pushed   digitalRead(limitSwOpen)
       //turn on the relays
       PORTB |= 0x01;
       PORTB |= 0x02;
-      //wait til switch gets pushed
-      while ((PINC & 0x10) > 0) {
-        
-      }
+      //wait til switch gets pushed      
+      while ((PINC & 0x10) == 0x10) {}      
       //turn off the relays
       PORTB &= ~0x01;
       PORTB &= ~0x02;
@@ -22,14 +20,12 @@ turns relays on til limit switch gets pushed*/
      
   else {//close windows
     /*debug*/DPL("start closing windows");
-    if ((PINC & 0x08) > 0) {//negative logic switch goes to low when pushed   digitalRead(limitSw)
+    if ((PINC & 0x08) == 0x08) {//negative logic switch goes to low when pushed   digitalRead(limitSwClose)
       //turn on the relays
       PORTD |= 0x40;
       PORTD |= 0x80;
       //wait til switch gets pushed
-      while ((PINC & 0x08) > 0) {
-        
-      }
+      while ((PINC & 0x08) == 0x08) {}
       //turn off the relays
       PORTD &= ~0x40;
       PORTD &= ~0x80;
