@@ -19,7 +19,7 @@ void logData() {
   file.print(",");
   file.print(rhIn, DEC);
   file.print(",");
-  file.print(anemoRpm, DEC);
+  file.print(anemoMaxRpm, DEC);
   file.print(",");
   file.println(newState, DEC);
   file.close();

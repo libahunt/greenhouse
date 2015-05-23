@@ -27,10 +27,13 @@ const int closeWindowsIfMoistTemp = 15; //temperature inside to close windows in
 const int interval = 15*60;//15 mins
 
 /*how many attempts to make with DHT11 temperature/RH sensors if the communication fails*/
-int tempReadMaxTries = 3;
+const int tempReadMaxTries = 3;
 
-/*over how long peiod to count anemometer RPM, in MILLISECONDS*/
-unsigned long windMeasureTime = 10000;
+/*over how long period to count anemometer RPM for one result, in MILLISECONDS*/
+const unsigned long windMeasureTime = 10000; //10 seconds
+/*how many samples to take - the highest result is used to determine dangerous wind speed.
+NOTE: You might want to reduce the number of samples while debugging with serial to save time*/
+int windMeasureReps = 30; //10sec * 30 means the sampless are taken over 5 min period
+
 /*debouncing threshold for anemometer comparator output in milliseconds*/
-unsigned long anemoDebounceThres = 10;
-
+const unsigned long anemoDebounceThres = 10;

@@ -147,12 +147,12 @@ void loop() {
     
     
     /***decide***/
-    if (anemoRpm >= closeWindowsAnemoRpm) {
+    if (anemoMaxRpm >= closeWindowsAnemoRpm) {
     //has got too windy, close windows disregarding anything else
      newState = 0;//closed
      /*debug*/DPL("too windy");
     }
-    else if (anemoRpm <= openWindowsAnemoRpm || state == 1) {
+    else if (anemoMaxRpm <= openWindowsAnemoRpm || state == 1) {
     //wind is safely low (time to open) 
     //or medium (but lower than closing threshold) and windows are already open
     //concider other factors
