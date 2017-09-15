@@ -33,7 +33,11 @@ const int tempReadMaxTries = 3;
 const unsigned long windMeasureTime = 10000; //10 seconds
 /*how many samples to take - the highest result is used to determine dangerous wind speed.
 NOTE: You might want to reduce the number of samples while debugging with serial to save time*/
-int windMeasureReps = 30; //10sec * 30 means the sampless are taken over 5 min period
+int windMeasureReps = 12; //10sec * 12 means the samples are taken over 2 min period
 
 /*debouncing threshold for anemometer comparator output in milliseconds*/
 const unsigned long anemoDebounceThres = 10;
+
+/*there are different types of relays that are triggered by either low (0) or high (1) level, choose which ones you have*/
+const bool relayTriggerLevel = 0;
+

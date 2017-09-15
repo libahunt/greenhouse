@@ -73,8 +73,7 @@ void setup() {
   /*port B:
   PD0, PD1 relays = outputs
   PB2 - sd card chip select = output - don't know if I have to explicitly set?
-  PB3, PB4, PB5 - miso, mosi, sck - SD library will take care of them
-  PB7, PB6 - unused, normally would be xtal*/
+  PB3, PB4, PB5 - miso, mosi, sck - SD library will take care of them*/
   DDRB = DDRB | 0x07;//outputs
   
   /*port C:
@@ -92,7 +91,8 @@ void setup() {
   PD6, PD7 relays = outputs*/
   DDRD = DDRD | 0xC0;//outputs
   DDRD = DDRD & ~0x10;//inputs
-  
+
+  turnOffRelays();
   
   logReset();//record the fact of setup running in log file and add column headings
   
