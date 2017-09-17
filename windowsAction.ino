@@ -2,6 +2,7 @@ void operateWindows() {
 /*moves windows to state determined by newState variable
 turns relays on til limit switch gets pushed*/
   unsigned long startTime = millis();
+  windowError = false;
   if (newState == 1) {//open windows
     /*debug*/DPL("start opening windows");
     if ((PINC & 0x10) == 0x10) {//negative logic switch goes to low when pushed   digitalRead(limitSwOpen)
@@ -12,6 +13,7 @@ turns relays on til limit switch gets pushed*/
         //wait til switch gets pushed      
         while ((PINC & 0x10) == 0x10) {
           if (millis() > startTime + windowOperationTimeout) {
+            windowError = true;
             DPL("window operation timed out");
             break;
           }
@@ -27,6 +29,7 @@ turns relays on til limit switch gets pushed*/
         //wait til switch gets pushed      
         while ((PINC & 0x10) == 0x10) {
           if (millis() > startTime + windowOperationTimeout) {
+            windowError = true;
             DPL("window operation timed out");
             break;
           }
@@ -51,6 +54,7 @@ turns relays on til limit switch gets pushed*/
         //wait til switch gets pushed
         while ((PINC & 0x08) == 0x08) {
           if (millis() > startTime + windowOperationTimeout) {
+            windowError = true;
             DPL("window operation timed out");
             break;
           }
@@ -66,6 +70,7 @@ turns relays on til limit switch gets pushed*/
         //wait til switch gets pushed
         while ((PINC & 0x08) == 0x08) {
           if (millis() > startTime + windowOperationTimeout) {
+            windowError = true;
             DPL("window operation timed out");
             break;
           }

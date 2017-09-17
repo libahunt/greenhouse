@@ -25,7 +25,11 @@
     file.print(",");
     file.print(newState, DEC);
     file.print(",");
-    file.println(batteryVoltage, DEC);
+    file.print(batteryVoltage, DEC);
+    if (windowError) {//if last time windows were operated they did not reach limit switch during the timeout
+      file.print(",WINDOW ERROR!");
+    }
+    file.println("");
     file.close();
     /*debug*/DPL("log done");
   
