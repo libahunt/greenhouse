@@ -41,6 +41,9 @@ const unsigned long anemoDebounceThres = 10;
 /*there are different types of relays that are triggered by either low (0) or high (1) level, choose which ones you have*/
 const bool relayTriggerLevel = 0;
 
+/*how long to spin the motor for opening or closng windows if the limit switch does not indicate it's done (in milliseconds)*/
+const unsigned long windowOperationTimeout = 120*1000;
+
 /*Battery monitoring voltage divider resistor values (in ohms)*/
 const int dividerUpper = 64759;
 const int dividerLower = 32240;
