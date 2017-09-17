@@ -52,12 +52,15 @@ const int limitSwClose = 17;//PC3
 const int limitSwOpen = 18;//PC4
 */
 
+/*
+12V battery monitoring voltage divider - A2 = PC2
+*/
+const int batteryADC = A2;
 
 /*
 Atmega168/328 unused I/O-s so far:
 PC0
 PC1
-PC2
 PC5
 PD5
 PD0 - RX (no low impedance allowed)

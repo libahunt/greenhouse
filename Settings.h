@@ -41,3 +41,9 @@ const unsigned long anemoDebounceThres = 10;
 /*there are different types of relays that are triggered by either low (0) or high (1) level, choose which ones you have*/
 const bool relayTriggerLevel = 0;
 
+/*Battery monitoring voltage divider resistor values (in ohms)*/
+const int dividerUpper = 64759;
+const int dividerLower = 32240;
+/*5V regulator exact output in millivolts - if you can measure it. Otherwise approximate 5000.*/
+const int referenceVoltage = 5000;
+

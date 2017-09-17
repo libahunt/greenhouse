@@ -188,8 +188,9 @@ void loop() {
       newState = 0;//closed
       /*debug*/DPL("medium wind, not opening yet");
     }
-    
-    
+
+    /***measure the 12V battery voltage from voltage divider***/
+    measureBattery();  
     
     /***log data***/
     logData();

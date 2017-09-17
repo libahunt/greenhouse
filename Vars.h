@@ -6,6 +6,7 @@ int rhOut= -1;//-1 means unknown
 int anemoMaxRpm = -1;//rpm reading from anemometer, -1 means unknown
 byte newState = 2;//0-windows closed, 1- windows open, 2-unknown
 byte state = 2;
+int batteryVoltage = 0;//in millivolts
 
 //controller wakes up each second but only after a set interval it should do measurements
 int secondsCounter = 0; //helper for counting up to desired interval
