@@ -8,27 +8,26 @@ Settings: Variables that hold parameters that are most likely to need tweaking, 
 Debugging: For hardware tests there is Serial debug code provided. To use it, find "#define DEBUG" 
 in this file and remove comment marks from it.
 
-ATmega 168: SD card functions and Serial commands in debug code do not fit at the same time
-on ATmega168 (they fit on ATmega 328 nicely).
-It is possible to test your hardware, except SD card, via provided debug code
-if you switch off SD logging - to do that find logReset() and logData() in this file and comment
-them out.
+SD card logging: SD card related stuff can be turned off to save memory. Comment out #define SD_LOGGING to do so.
+
+ATmega168 controller could be used without SD card logging only. It has too low memory when SD functions are used.
 */
-
-
-
-#include <SdFat.h>
-#include <idDHT11.h>
-
-#include <avr/sleep.h>
-#include <avr/power.h>
-#include <avr/wdt.h>
-
 
 /*debug*/
 #define DEBUG /*comment this line out in production then all Serial instructsions are ignored*/
 #include "DebugUtils.h"/*leave this in, otherwise you get errors*/
 
+#define SD_LOGGING /*comment this line out if you are not using SD card to log data*/
+
+#ifdef SD_LOGGING
+  #include <SdFat.h>
+#endif
+
+#include <idDHT11.h>
+
+#include <avr/sleep.h>
+#include <avr/power.h>
+#include <avr/wdt.h>
 
 #include "layout.h" //Pin connections
 #include "Settings.h" //Variables that might need tweaking
@@ -45,8 +44,10 @@ void dht11_wrOut(); // must be declared before the lib initialization
 idDHT11 DHT11A(tempSensorIn, tempSensorInIntNr, dht11_wrIn);
 idDHT11 DHT11B(tempSensorOut, tempSensorOutIntNr, dht11_wrOut);
 
-SdFat sd;
-SdFile file;
+#ifdef SD_LOGGING
+  SdFat sd;
+  SdFile file;
+#endif
 
 /***************************************************************
    SETUP 
@@ -93,8 +94,10 @@ void setup() {
   DDRD = DDRD & ~0x10;//inputs
 
   turnOffRelays();
-  
-  logReset();//record the fact of setup running in log file and add column headings
+
+  #ifdef SD_LOGGING
+    logReset();//record the fact of setup running in log file and add column headings
+  #endif
   
   watchdogInterruptSetup();//set up 1 second watchdog timer interrupts for waking up from sleep
   
@@ -192,8 +195,11 @@ void loop() {
     /***measure the 12V battery voltage from voltage divider***/
     measureBattery();  
     
-    /***log data***/
-    logData();
+    /***log data to SD card if required***/
+    #ifdef SD_LOGGING
+      logData();
+    #endif
+    
     
     /***move windows***/
     operateWindows();
